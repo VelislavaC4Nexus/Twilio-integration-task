@@ -31,8 +31,19 @@ server.extend(module.superModule);
 */
 server.append('Show', function (req, res, next) {
     var viewData = res.getViewData();
+
+    var accountHelpers = require('*/cartridge/scripts/account/accountHelpers');
+    var accountModel = accountHelpers.getAccountModel(req);
+    viewData.phoneNumber = accountModel? accountModel.profile.phone : "";
+
     var outOfStockForm = server.forms.getForm('outOfStockForm');
     viewData.outOfStockForm = outOfStockForm;
+
+    var ContentMgr = require('dw/content/ContentMgr');
+    var outOfStockMessage = ContentMgr.getContent('outOfStockMessage');
+    if(outOfStockMessage){
+        viewData.outOfStockMessage = outOfStockMessage;
+    }
     res.setViewData(viewData);
     next();
 });

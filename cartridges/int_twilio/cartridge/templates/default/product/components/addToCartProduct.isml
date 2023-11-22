@@ -11,6 +11,17 @@
         </div>
         <div id="out-of-stock-subscription" <isif condition="${product.available}">class="d-none"
             </isif>>
+
+            <div class="row">
+                <div class="col">
+                    <isif condition="${!empty(pdict.outOfStockMessage) && pdict.outOfStockMessage.online}">
+                        <p class="out-of-stock-message">
+                            <isprint value="${pdict.outOfStockMessage.custom.body.markup}" encoding="off" />
+                        </p>
+                    </isif>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col">
                     <form action="${}" class="out-of-stock-subscribe" method="POST"
@@ -20,6 +31,7 @@
                         <isif condition=" ${!!pdict.outOfStockForm.twilio.phone.mandatory === true}">required</isif>">
                             <div class="input-group form-group">
                                 <input type="tel" class="form-control" id="registration-form-phone"
+                                    value="${pdict.phoneNumber}"
                                     data-missing-error="${Resource.msg('error.twilio.message.required', 'forms', null)}"
                                     data-pattern-mismatch="${Resource.msg('error.twilio.message.parse.phone', 'forms', null)}"
                                     data-range-error="${Resource.msg('error.message.50orless', 'forms', null)}"
