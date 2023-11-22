@@ -1,0 +1,51 @@
+<div class="row cart-and-ipay">
+    <div class="col-sm-12">
+        <div id="add-to-cart-btn" <isif condition="${!product.available}">class="d-none"</isif>>
+            <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+            <button class="add-to-cart btn btn-primary" data-toggle="modal" data-target="#chooseBonusProductModal"
+                data-pid="${product.id}" ${!product.readyToOrder || !product.available ? "disabled" : ""}>
+                <i class="fa fa-shopping-bag"></i>
+                ${Resource.msg('button.addtocart', 'common', null)}
+            </button>
+
+        </div>
+        <div id="out-of-stock-subscription" <isif condition="${product.available}">class="d-none"
+            </isif>>
+            <div class="row">
+                <div class="col">
+                    <form action="${}" class="out-of-stock-subscribe" method="POST"
+                        name="${pdict.outOfStockForm.htmlName}">
+
+                        <div class="form-group
+                        <isif condition=" ${!!pdict.outOfStockForm.twilio.phone.mandatory === true}">required</isif>">
+                            <div class="input-group form-group">
+                                <input type="tel" class="form-control" id="registration-form-phone"
+                                    data-missing-error="${Resource.msg('error.twilio.message.required', 'forms', null)}"
+                                    data-pattern-mismatch="${Resource.msg('error.twilio.message.parse.phone', 'forms', null)}"
+                                    data-range-error="${Resource.msg('error.message.50orless', 'forms', null)}"
+                                    aria-describedby="form-phone-error" <isprint
+                                    value=${pdict.outOfStockForm.twilio.phone.attributes} encoding="off" />
+                                placeholder="${Resource.msg('label.twilio.input.phone', 'forms', null)}"
+                                >
+
+                                <span class="input-group-append">
+                                    <button type="submit" class="add-to-notify btn btn-primary">
+                                        <i class="fa fa-bell"></i>
+                                        ${Resource.msg('label.twilio.button.subscribe.notify.me', 'forms', null)}
+                                    </button>
+                                </span>
+
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <isinclude template="product/components/addToCartButtonExtension" />
+</div>
