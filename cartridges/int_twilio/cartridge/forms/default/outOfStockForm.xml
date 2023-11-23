@@ -2,13 +2,20 @@
 <form xmlns="http://www.demandware.com/xml/form/2008-04-19" secure="false">
     <group formid="twilio">
         <field
-            formid="phone"
-                label="label.input.phone"
+                formid="phone"
+                label="label.twilio.input.phone"
+                max-length="15"
+                min-length="9"
                 mandatory="true"
                 regexp="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
-                missing-error="error.message.required"
-                parse-error="error.message.parse.phone.profile.form"
+                missing-error="error.twilio.message.required"
+                parse-error="error.twilio.message.parse.phone"
                 type="string"
+        /> 
+        <field
+         formid="productId"
+         mandatory="true"
+         type="string"
         /> 
     </group>
 </form>
