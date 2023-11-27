@@ -6,8 +6,6 @@
 
 var server = require('server');
 
-var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
-var Transaction = require('dw/system/Transaction');
 var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper')
 // var utils = require('../scripts/utils/utils');
 
@@ -24,7 +22,6 @@ server.post('SavePhoneNumber',
     server.middleware.https,
     function (req, res, next) {
         var outOfStockForm = server.forms.getForm('outOfStockForm');
-        var Transaction = require('dw/system/Transaction');
         var Resource = require('dw/web/Resource');
 
         if (outOfStockForm.valid) {
@@ -59,5 +56,36 @@ server.post('SavePhoneNumber',
         }
         next();
     });
+
+server.get('Show', server.middleware.https, function (req, res, next) {
+    var ProductMgr = require("dw/catalog/ProductMgr");
+    var ContentMgr = require('dw/content/ContentMgr');
+    var accountHelpers = require('*/cartridge/scripts/account/accountHelpers');
+
+    var productId = req.querystring.pid;
+    var product = ProductMgr.getProduct(productId);
+    var productName = product.name;
+    var availability = product.availabilityModel.availability === 0 ? false : true;
+
+
+    var accountModel = accountHelpers.getAccountModel(req);
+    var phoneNumber = accountModel ? accountModel.profile.phone : "";
+
+    var outOfStockMessage = ContentMgr.getContent('outOfStockMessage');
+    var outOfStockForm = server.forms.getForm('outOfStockForm');
+
+
+    res.render("product/components/outOfStockForm", {
+        availability: availability,
+        product: product,
+        phoneNumber: phoneNumber,
+        outOfStockForm: outOfStockForm,
+        outOfStockMessage: outOfStockMessage
+
+    })
+
+    next();
+});
+
 
 module.exports = server.exports();
