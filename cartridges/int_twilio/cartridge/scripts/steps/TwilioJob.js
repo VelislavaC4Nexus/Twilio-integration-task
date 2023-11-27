@@ -40,6 +40,8 @@ module.exports.execute = function () {
         }
 
     } catch (error) {
-        var error = 'error';
+        var Logger = require('dw/system/Logger');
+        var Resource = require('dw/web/Resource');
+        Logger.error(Resource.msg('error.twilio.job', 'twilio', null));
     }
 }

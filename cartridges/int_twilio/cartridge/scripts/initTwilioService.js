@@ -24,7 +24,7 @@ function sendSMSFromTwilio(phone, productName) {
             return response;
         },
         filterLogMessage: function (msg) {
-            return msg
+            return msg;
         }
     });
 

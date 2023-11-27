@@ -1,6 +1,8 @@
 'use strict';
 
 var createErrorNotification = require('base/components/errorNotification');
+var utils = require('../../../../scripts/utils/utils');
+
 
 function displayMessage(data, status) {
     $.spinner().stop();
@@ -28,15 +30,15 @@ module.exports = {
     updateAttribute: function () {
         $('body').on('product:afterAttributeSelect', function (e, response) {
             if (response.data.product.available) {
-                if ($('#add-to-cart-btn').hasClass('d-none')) {
-                    $('#add-to-cart-btn').removeClass('d-none');
+                if ($(utils.selectorAddToCartBtn).hasClass('d-none')) {
+                    $(utils.selectorAddToCartBtn).removeClass('d-none');
                 }
-                $('#out-of-stock-subscription').addClass('d-none');
+                $(utils.selectorOutOfStockSubscription).addClass('d-none');
             } else {
-                if ($('#out-of-stock-subscription').hasClass('d-none')) {
-                    $('#out-of-stock-subscription').removeClass('d-none');
+                if ($(utils.selectorOutOfStockSubscription).hasClass('d-none')) {
+                    $(utils.selectorOutOfStockSubscription).removeClass('d-none');
                 }
-                $('#add-to-cart-btn').addClass('d-none');
+                $(utils.selectorAddToCartBtn).addClass('d-none');
                 $('#productId').val(response.data.product.id);
             }
             if ($('.product-detail>.bundle-items').length) {
