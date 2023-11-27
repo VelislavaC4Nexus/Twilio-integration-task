@@ -64,9 +64,6 @@ server.get('Show', server.middleware.https, function (req, res, next) {
 
     var productId = req.querystring.pid;
     var product = ProductMgr.getProduct(productId);
-    var productName = product.name;
-    var availability = product.availabilityModel.availability === 0 ? false : true;
-
 
     var accountModel = accountHelpers.getAccountModel(req);
     var phoneNumber = accountModel ? accountModel.profile.phone : "";
@@ -74,9 +71,7 @@ server.get('Show', server.middleware.https, function (req, res, next) {
     var outOfStockMessage = ContentMgr.getContent('outOfStockMessage');
     var outOfStockForm = server.forms.getForm('outOfStockForm');
 
-
     res.render("product/components/outOfStockForm", {
-        availability: availability,
         product: product,
         phoneNumber: phoneNumber,
         outOfStockForm: outOfStockForm,
