@@ -76,8 +76,7 @@ server.get('Show', server.middleware.https, function (req, res, next) {
         phoneNumber: phoneNumber,
         outOfStockForm: outOfStockForm,
         outOfStockMessage: outOfStockMessage
-
-    })
+    });
 
     next();
 });
