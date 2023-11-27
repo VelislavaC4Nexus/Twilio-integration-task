@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library xmlns="http://www.demandware.com/xml/impex/library/2006-10-31" library-id="RefArchSharedLibrary">
+    <content content-id="outOfStockMessage">
+        <display-name xml:lang="x-default">Out of stock message</display-name>
+        <description xml:lang="x-default">Display message if product is out of stock</description>
+        <online-flag>true</online-flag>
+        <searchable-flag>true</searchable-flag>
+        <page-attributes/>
+        <custom-attributes>
+            <custom-attribute attribute-id="body" xml:lang="x-default">Do you want to be notified when product is back in stock?</custom-attribute>
+        </custom-attributes>
+    </content>
+</library>
