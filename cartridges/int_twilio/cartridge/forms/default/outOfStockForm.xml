@@ -7,13 +7,18 @@
                 max-length="15"
                 min-length="9"
                 mandatory="true"
-                regexp="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"
+                regexp="^\+?[0-9]{9,15}$"
                 missing-error="error.twilio.message.required"
                 parse-error="error.twilio.message.parse.phone"
                 type="string"
         /> 
         <field
          formid="productId"
+         mandatory="true"
+         type="string"
+        /> 
+           <field
+         formid="productName"
          mandatory="true"
          type="string"
         /> 

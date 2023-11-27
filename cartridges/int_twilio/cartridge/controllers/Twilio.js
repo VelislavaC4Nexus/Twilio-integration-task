@@ -23,18 +23,16 @@ var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper')
 server.post('SavePhoneNumber',
     server.middleware.https,
     function (req, res, next) {
-        var formErrors = require('*/cartridge/scripts/formErrors');
-
         var outOfStockForm = server.forms.getForm('outOfStockForm');
         var Transaction = require('dw/system/Transaction');
         var Resource = require('dw/web/Resource');
 
         if (outOfStockForm.valid) {
-
+            var productName = outOfStockForm.twilio.productName.htmlValue;
             var phoneNumber = outOfStockForm.twilio.phone.htmlValue;
             var productId = outOfStockForm.twilio.productId.htmlValue;
 
-            var addToCOResponse = addToCOHelper.addToCOHelper(productId, phoneNumber);
+            var addToCOResponse = addToCOHelper.addToCOHelper(productId, phoneNumber, productName);
 
             if (addToCOResponse.existingPhoneNumber && addToCOResponse.success) {
                 res.json({

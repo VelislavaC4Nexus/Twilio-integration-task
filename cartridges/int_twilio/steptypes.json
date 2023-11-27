@@ -1,0 +1,11 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id":"custom.TwilioJobStep",
+                "description": "My custom script step type",
+                "module":"int_twilio/cartridge/scripts/steps/TwilioJob"
+            }
+        ]
+    }
+}

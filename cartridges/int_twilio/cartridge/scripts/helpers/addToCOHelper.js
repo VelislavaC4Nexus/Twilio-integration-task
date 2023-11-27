@@ -4,7 +4,7 @@ var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var utils = require('../utils/utils');
 
 
-function addToCOHelper(productId, phoneNumber) {
+function addToCOHelper(productId, phoneNumber, productName) {
     var type = utils.typeTwilioCO
     var keyValue = productId;
     var twilioCO = CustomObjectMgr.getCustomObject(type, keyValue);
@@ -18,6 +18,7 @@ function addToCOHelper(productId, phoneNumber) {
             if (!twilioCO) {
                 twilioCO = CustomObjectMgr.createCustomObject(type, keyValue);
                 twilioCO.custom.phoneNumber = [phoneNumber];
+                twilioCO.custom.productName = productName;
             } else {
                 var phones = Array.from(twilioCO.custom.phoneNumber);
                 var phoneIsExisting = phones.includes(phoneNumber);

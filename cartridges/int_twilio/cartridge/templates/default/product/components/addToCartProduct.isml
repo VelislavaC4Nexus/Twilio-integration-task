@@ -30,6 +30,8 @@
                         >
                         <input type="hidden" id="productId" value="${product.id}" <isprint value="${pdict.outOfStockForm.twilio.productId.attributes}" encoding="off" />/>
 
+                        <input type="hidden" id="productName" value="${product.productName}" <isprint value="${pdict.outOfStockForm.twilio.productName.attributes}" encoding="off" />/>
+
                         <div class="form-group
                         <isif condition=" ${!!pdict.outOfStockForm.twilio.phone.mandatory === true}">required</isif>">
                             <div class="input-group form-group">
