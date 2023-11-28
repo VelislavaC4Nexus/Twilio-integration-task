@@ -12,18 +12,56 @@ var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
 
 /**
-* Product-Show : This endpoint is called to show the details of the selected product
-* @name Base/Twilio-SavePhoneNumber
+* Twilio-Show : This endpoint is called to show form if product is out of stock
+* @name Base/Twilio-Show
 * @function
 * @memberof Twilio
 * @param {httpparameter} - csrf_token - a CSRF token
- @param {middleware} - server.middleware.https
+* @param {middleware} - consentTracking.consent
+* @param {middleware} - server.middleware.https
+* @param {serverfunction} - get
+* 
+*/
+server.get('Show',
+    server.middleware.https,
+    consentTracking.consent,
+    csrfProtection.generateToken,
+    function (req, res, next) {
+        var ProductMgr = require("dw/catalog/ProductMgr");
+        var ContentMgr = require('dw/content/ContentMgr');
+        var accountHelpers = require('*/cartridge/scripts/account/accountHelpers');
+
+        var productId = req.querystring.pid;
+        var product = ProductMgr.getProduct(productId);
+
+        var accountModel = accountHelpers.getAccountModel(req);
+        var phoneNumber = accountModel ? accountModel.profile.phone : "";
+
+        var outOfStockForm = server.forms.getForm('outOfStockForm');
+
+        res.render("product/components/outOfStockForm", {
+            product: product,
+            phoneNumber: phoneNumber,
+            outOfStockForm: outOfStockForm,
+        });
+
+        next();
+    });
+
+/**
+* Twilio-Show : This endpoint is called to save data from out of stock form
+* @name Base/Twilio-SavePhoneNumber
+* @function
+* @memberof Twilio
+* @param {middleware} - csrfProtection.validateAjaxRequest
+* @param {middleware} - server.middleware.https
+* @param {returns} - json
+* @param {serverfunction} - post
 * 
 */
 server.post('SavePhoneNumber',
     server.middleware.https,
     csrfProtection.validateAjaxRequest,
-    
     function (req, res, next) {
         var outOfStockForm = server.forms.getForm('outOfStockForm');
         var Resource = require('dw/web/Resource');
@@ -33,7 +71,7 @@ server.post('SavePhoneNumber',
             var phoneNumber = outOfStockForm.twilio.phone.htmlValue;
             var productId = outOfStockForm.twilio.productId.htmlValue;
 
-            var addToCOResponse = addToCOHelper.addToCOHelper(productId, phoneNumber, productName);
+            var addToCOResponse = addToCOHelper.submitToCO(productId, phoneNumber, productName);
 
             if (addToCOResponse.existingPhoneNumber && addToCOResponse.success) {
                 res.json({
@@ -60,28 +98,5 @@ server.post('SavePhoneNumber',
         }
         next();
     });
-
-server.get('Show', server.middleware.https,consentTracking.consent, csrfProtection.generateToken, function (req, res, next) {
-    var ProductMgr = require("dw/catalog/ProductMgr");
-    var ContentMgr = require('dw/content/ContentMgr');
-    var accountHelpers = require('*/cartridge/scripts/account/accountHelpers');
-
-    var productId = req.querystring.pid;
-    var product = ProductMgr.getProduct(productId);
-
-    var accountModel = accountHelpers.getAccountModel(req);
-    var phoneNumber = accountModel ? accountModel.profile.phone : "";
-
-    var outOfStockForm = server.forms.getForm('outOfStockForm');
-
-    res.render("product/components/outOfStockForm", {
-        product: product,
-        phoneNumber: phoneNumber,
-        outOfStockForm: outOfStockForm,
-    });
-
-    next();
-});
-
 
 module.exports = server.exports();

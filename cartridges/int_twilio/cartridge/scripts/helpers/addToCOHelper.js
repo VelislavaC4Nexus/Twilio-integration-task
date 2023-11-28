@@ -4,7 +4,7 @@ var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var utils = require('../utils/utils');
 
 
-function addToCOHelper(productId, phoneNumber, productName) {
+function submitToCO(productId, phoneNumber, productName) {
     var type = utils.typeTwilioCO
     var keyValue = productId;
     var twilioCO = CustomObjectMgr.getCustomObject(type, keyValue);
@@ -38,5 +38,5 @@ function addToCOHelper(productId, phoneNumber, productName) {
 }
 
 module.exports = {
-    addToCOHelper: addToCOHelper
+    submitToCO: submitToCO
 }
