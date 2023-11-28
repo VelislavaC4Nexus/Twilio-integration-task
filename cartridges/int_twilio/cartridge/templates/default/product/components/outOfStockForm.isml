@@ -1,10 +1,7 @@
+<isinclude template="/components/modules" />
 <div class="row">
     <div class="col">
-        <isif condition="${!empty(pdict.outOfStockMessage) && pdict.outOfStockMessage.online}">
-            <p class="out-of-stock-message">
-                <isprint value="${pdict.outOfStockMessage.custom.body.markup}" encoding="off" />
-            </p>
-        </isif>
+        <iscontentasset aid="outOfStockMessage" />
     </div>
 </div>
 <div class="row">

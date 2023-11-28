@@ -72,14 +72,12 @@ server.get('Show', server.middleware.https,consentTracking.consent, csrfProtecti
     var accountModel = accountHelpers.getAccountModel(req);
     var phoneNumber = accountModel ? accountModel.profile.phone : "";
 
-    var outOfStockMessage = ContentMgr.getContent('outOfStockMessage');
     var outOfStockForm = server.forms.getForm('outOfStockForm');
 
     res.render("product/components/outOfStockForm", {
         product: product,
         phoneNumber: phoneNumber,
         outOfStockForm: outOfStockForm,
-        outOfStockMessage: outOfStockMessage
     });
 
     next();
