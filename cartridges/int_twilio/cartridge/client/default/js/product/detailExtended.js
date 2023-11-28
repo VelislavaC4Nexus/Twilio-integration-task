@@ -1,8 +1,7 @@
 'use strict';
 
 var createErrorNotification = require('base/components/errorNotification');
-var utils = require('../../../../scripts/utils/utils');
-
+var utils = require('../utils');
 
 function displayMessage(data, status) {
     $.spinner().stop();
@@ -39,7 +38,7 @@ module.exports = {
                     $(utils.selectorOutOfStockSubscription).removeClass('d-none');
                 }
                 $(utils.selectorAddToCartBtn).addClass('d-none');
-                $('#productId').val(response.data.product.id);
+                $('.js-productId').val(response.data.product.id);
             }
             if ($('.product-detail>.bundle-items').length) {
                 response.container.data('pid', response.data.product.id);

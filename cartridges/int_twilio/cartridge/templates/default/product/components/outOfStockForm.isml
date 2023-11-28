@@ -14,7 +14,7 @@
             name="${pdict.outOfStockForm.htmlName}" <isprint value="${pdict.outOfStockForm.attributes}"
             encoding="off" />
         >
-        <input type="hidden" id="productId" value="${pdict.product.ID}" <isprint
+        <input type="hidden" class="js-productId" value="${pdict.product.ID}" <isprint
             value="${pdict.outOfStockForm.twilio.productId.attributes}" encoding="off" />/>
 
         <input type="hidden" id="productName" value="${pdict.product.name}" <isprint

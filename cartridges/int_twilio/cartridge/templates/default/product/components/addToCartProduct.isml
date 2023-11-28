@@ -1,7 +1,7 @@
 <div class="row cart-and-ipay">
     <div class="col-sm-12">
-        <div id="add-to-cart-btn" <isif condition="${!product.available}">class="d-none"</isif>>
-            <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
+        <div  <isif condition="${!product.available}">class="d-none"</isif>>
+            <input type="hidden" class="add-to-cart-url js-add-to-cart-btn" value="${pdict.addToCartUrl}">
             <button class="add-to-cart btn btn-primary" data-toggle="modal" data-target="#chooseBonusProductModal"
                 data-pid="${product.id}" ${!product.readyToOrder || !product.available ? "disabled" : ""}>
                 <i class="fa fa-shopping-bag"></i>
@@ -9,7 +9,7 @@
             </button>
 
         </div>
-        <div id="out-of-stock-subscription" <isif condition="${product.available}">class="d-none"
+        <div class="js-out-of-stock-subscription" <isif condition="${product.available}">class="d-none"
             </isif>>
 
           <isinclude url="${URLUtils.url('Twilio-Show', 'pid', product.id)}" />
