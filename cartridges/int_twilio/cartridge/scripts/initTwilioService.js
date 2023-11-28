@@ -5,7 +5,7 @@ var StringUtils = require('dw/util/StringUtils');
 var Resource = require('dw/web/Resource');
 var utils = require('./utils/utils');
 
-function sendSMSFromTwilio(phone, productName) {
+function sendSMSFromTwilio(phone, productName, twilioPhoneNumber) {
 
     var getTwilioService = LocalServiceRegistry.createService("http.twilio.service", {
         createRequest: function (svc, params) {
@@ -29,7 +29,7 @@ function sendSMSFromTwilio(phone, productName) {
     });
 
     var message = StringUtils.format(Resource.msg('message.twilio.sms', 'twilio', null), productName)
-    var req = 'To=' + phone + '&From=' + utils.twilioPhoneNumber + '&Body=' + message;
+    var req = 'To=' + phone + '&From=' + twilioPhoneNumber + '&Body=' + message;
     var response = getTwilioService.call(req);
 
     return response.object;

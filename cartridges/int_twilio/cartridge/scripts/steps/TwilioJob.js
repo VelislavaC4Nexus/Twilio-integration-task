@@ -6,6 +6,8 @@ var utils = require('../utils/utils');
 module.exports.execute = function () {
     var allCOTwilio = CustomObjectMgr.getAllCustomObjects(utils.typeTwilioCO);
     var initTwilioService = require('*/cartridge/scripts/initTwilioService');
+    var Site = require('dw/system/Site');
+    var twilioPhoneNumber = Site.current.getCustomPreferenceValue('v_site_pref_twilio_phone');
 
     try {
         while (allCOTwilio.hasNext()) {
@@ -17,7 +19,7 @@ module.exports.execute = function () {
             var isProductAvailable = currentProduct.availabilityModel.availability > 0;
             if (phones && currentProduct.availabilityModel.availability > 0) {
                 phones.forEach(phone => {
-                    var response = initTwilioService.sendSMSFromTwilio(phone, currentProduct.name);
+                    var response = initTwilioService.sendSMSFromTwilio(phone, currentProduct.name,twilioPhoneNumber);
                     if (response.statusMessage !== "Created") {
                         error = true;
                     } else {

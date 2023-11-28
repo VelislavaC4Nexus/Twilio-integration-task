@@ -1,6 +1,6 @@
 <div class="row cart-and-ipay">
     <div class="col-sm-12">
-        <div class="js-add-to-cart-btn <isif condition="${!product.available}">d-none"</isif>">
+        <div class="js-add-to-cart-btn <isif condition="${!product.available}">d-none</isif>">
             <input type="hidden" class="add-to-cart-url" value="${pdict.addToCartUrl}">
             <button class="add-to-cart btn btn-primary" data-toggle="modal" data-target="#chooseBonusProductModal"
                 data-pid="${product.id}" ${!product.readyToOrder || !product.available ? "disabled" : ""}>
