@@ -6,8 +6,10 @@
 
 var server = require('server');
 
-var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper')
-// var utils = require('../scripts/utils/utils');
+var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper');
+var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
+var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
+
 
 /**
 * Product-Show : This endpoint is called to show the details of the selected product
@@ -20,6 +22,8 @@ var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper')
 */
 server.post('SavePhoneNumber',
     server.middleware.https,
+    csrfProtection.validateAjaxRequest,
+    
     function (req, res, next) {
         var outOfStockForm = server.forms.getForm('outOfStockForm');
         var Resource = require('dw/web/Resource');
@@ -34,12 +38,12 @@ server.post('SavePhoneNumber',
             if (addToCOResponse.existingPhoneNumber && addToCOResponse.success) {
                 res.json({
                     success: true,
-                    msg: Resource.msg('success.message.existingPhoneNumber', 'forms', null)
+                    msg: Resource.msg('success.message.existingPhoneNumber', 'twilio', null)
                 });
             } else if (!addToCOResponse.existingPhoneNumber && addToCOResponse.success) {
                 res.json({
                     success: true,
-                    msg: Resource.msg('success.message.addToCO', 'forms', null)
+                    msg: Resource.msg('success.message.addToCO', 'twilio', null)
                 });
             } else if (!addToCOResponse.existingPhoneNumber && !addToCOResponse.success) {
                 res.json({
@@ -57,7 +61,7 @@ server.post('SavePhoneNumber',
         next();
     });
 
-server.get('Show', server.middleware.https, function (req, res, next) {
+server.get('Show', server.middleware.https,consentTracking.consent, csrfProtection.generateToken, function (req, res, next) {
     var ProductMgr = require("dw/catalog/ProductMgr");
     var ContentMgr = require('dw/content/ContentMgr');
     var accountHelpers = require('*/cartridge/scripts/account/accountHelpers');

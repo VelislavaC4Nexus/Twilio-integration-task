@@ -20,6 +20,7 @@
         <input type="hidden" id="productName" value="${pdict.product.name}" <isprint
             value="${pdict.outOfStockForm.twilio.productName.attributes}" encoding="off" />/>
 
+
         <div class="form-group
                         <isif condition=" ${!!pdict.outOfStockForm.twilio.phone.mandatory === true}">required</isif>">
             <div class="input-group form-group">
@@ -31,7 +32,7 @@
                     encoding="off" />
                 placeholder="${Resource.msg('label.twilio.input.phone', 'forms', null)}"
                 >
-
+                <input type="hidden" name="${pdict.csrf.tokenName}" value="${pdict.csrf.token}" />
                 <span class="input-group-append">
                     <button type="submit" class="btn btn-primary" id="out-of-stock-subscription-btn">
                         <i class="fa fa-bell"></i>
