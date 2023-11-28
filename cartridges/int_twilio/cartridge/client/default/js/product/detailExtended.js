@@ -29,14 +29,10 @@ module.exports = {
     updateAttribute: function () {
         $('body').on('product:afterAttributeSelect', function (e, response) {
             if (response.data.product.available) {
-                if ($(utils.selectorAddToCartBtn).hasClass('d-none')) {
-                    $(utils.selectorAddToCartBtn).removeClass('d-none');
-                }
+                $(utils.selectorAddToCartBtn).removeClass('d-none');
                 $(utils.selectorOutOfStockSubscription).addClass('d-none');
             } else {
-                if ($(utils.selectorOutOfStockSubscription).hasClass('d-none')) {
-                    $(utils.selectorOutOfStockSubscription).removeClass('d-none');
-                }
+                $(utils.selectorOutOfStockSubscription).removeClass('d-none');
                 $(utils.selectorAddToCartBtn).addClass('d-none');
                 $('.js-productId').val(response.data.product.id);
             }
