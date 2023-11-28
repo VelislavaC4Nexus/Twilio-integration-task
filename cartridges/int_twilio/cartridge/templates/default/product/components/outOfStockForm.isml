@@ -7,7 +7,6 @@
         </isif>
     </div>
 </div>
-
 <div class="row">
     <div class="col">
         <form action="${URLUtils.url('Twilio-SavePhoneNumber')}" class="out-of-stock-subscribe" method="POST"
