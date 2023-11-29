@@ -6,7 +6,7 @@
 
 var server = require('server');
 
-var addToCOHelper = require('*/cartridge/scripts/helpers/addToCOHelper');
+var coHelpers = require('*/cartridge/scripts/helpers/coHelpers');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 var consentTracking = require('*/cartridge/scripts/middleware/consentTracking');
 
@@ -71,7 +71,7 @@ server.post('SavePhoneNumber',
             var phoneNumber = outOfStockForm.twilio.phone.htmlValue;
             var productId = outOfStockForm.twilio.productId.htmlValue;
 
-            var addToCOResponse = addToCOHelper.submitToCO(productId, phoneNumber, productName);
+            var addToCOResponse = coHelpers.submitToCO(productId, phoneNumber, productName);
 
             if (addToCOResponse.existingPhoneNumber && addToCOResponse.success) {
                 res.json({

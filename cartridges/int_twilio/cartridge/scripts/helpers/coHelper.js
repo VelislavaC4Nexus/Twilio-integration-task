@@ -37,6 +37,11 @@ function submitToCO(productId, phoneNumber, productName) {
     return response;
 }
 
+function getAllCO() {
+    return CustomObjectMgr.getAllCustomObjects(utils.typeTwilioCO);
+}
+
 module.exports = {
+    getAllCO:getAllCO,
     submitToCO: submitToCO
 }

@@ -1,11 +1,10 @@
 var CustomObjectMgr = require('dw/object/CustomObjectMgr');
 var ProductMgr = require('dw/catalog/ProductMgr');
 var Transaction = require('dw/system/Transaction');
-var utils = require('../utils/utils');
-
+var coHelpers = require('../helpers/coHelpers');
 
 function twilioSendMessage(args) {
-    var allCOTwilio = CustomObjectMgr.getAllCustomObjects(utils.typeTwilioCO);
+    var allCOTwilio = coHelpers.getAllCO()
     var initTwilioService = require('*/cartridge/scripts/initTwilioService');
     var Site = require('dw/system/Site');
     var twilioPhoneNumber = Site.current.getCustomPreferenceValue('v_site_pref_twilio_phone');
