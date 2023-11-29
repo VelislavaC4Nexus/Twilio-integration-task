@@ -1,0 +1,24 @@
+{
+    "step-types": {
+        "script-module-step": [
+            {
+                "@type-id": "custom.TwilioJobStep",
+                "description": "My custom script step type",
+                "function": "twilioSendMessage",
+                "module": "int_twilio/cartridge/scripts/steps/TwilioJob",
+                "parameters": {
+                    "parameters": [
+                        {
+                            "@name": "twilio_phone",
+                            "@description": "Twilio phone to send message",
+                            "@type": "string",
+                            "@required": false,
+                            "@trim": true,
+                            "default-value": ""
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
