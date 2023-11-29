@@ -3,7 +3,8 @@ var ProductMgr = require('dw/catalog/ProductMgr');
 var Transaction = require('dw/system/Transaction');
 var utils = require('../utils/utils');
 
-module.exports.execute = function () {
+
+function twilioSendMessage(args) {
     var allCOTwilio = CustomObjectMgr.getAllCustomObjects(utils.typeTwilioCO);
     var initTwilioService = require('*/cartridge/scripts/initTwilioService');
     var Site = require('dw/system/Site');
@@ -19,24 +20,24 @@ module.exports.execute = function () {
             var isProductAvailable = currentProduct.availabilityModel.availability > 0;
             if (phones && currentProduct.availabilityModel.availability > 0) {
                 phones.forEach(phone => {
-                    var response = initTwilioService.sendSMSFromTwilio(phone, currentProduct.name,twilioPhoneNumber);
+                    var response = initTwilioService.sendSMSFromTwilio(phone, currentProduct.name, args.twilio_phone);
                     if (response.statusMessage !== "Created") {
                         error = true;
                     } else {
                         var sth = co.custom.phoneNumber;
                         var newPhonesArr = Array.from(co.custom.phoneNumber).filter(p => p !== phone);
-                         if (newPhonesArr.length !== 0) {
+                        if (newPhonesArr.length !== 0) {
                             Transaction.wrap(function () {
                                 co.custom.phoneNumber = newPhonesArr;
                             });
-                        }else{
+                        } else {
                             Transaction.wrap(function () {
                                 CustomObjectMgr.remove(co);
                             });
                         }
                     }
                 });
-           
+
             }
 
         }
@@ -47,3 +48,5 @@ module.exports.execute = function () {
         Logger.error(Resource.msg('error.twilio.job', 'twilio', null));
     }
 }
+
+module.exports = { twilioSendMessage: twilioSendMessage }
