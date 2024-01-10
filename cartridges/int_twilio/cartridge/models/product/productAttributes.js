@@ -47,7 +47,7 @@ function getAllAttrValues(
             displayValue: value.displayValue,
             value: value.value,
             selected: isSelected,
-            selectable: variationModel.hasOrderableVariants(attr, value)
+            selectable: true
         };
 
         if (processedAttr.selectable) {
@@ -115,12 +115,7 @@ function getAttrResetUrl(values, attrID) {
  * @param {string} selectedOptionsQueryParams - Selected options query params
  * @param {string} quantity - Quantity selected
  */
-function VariationAttributesModel(
-    variationModel,
-    attrConfig,
-    selectedOptionsQueryParams,
-    quantity
-) {
+function VariationAttributesModel(variationModel, attrConfig, selectedOptionsQueryParams, quantity) {
     var allAttributes = variationModel.productVariationAttributes;
     var result = [];
     collections.forEach(allAttributes, function (attr) {

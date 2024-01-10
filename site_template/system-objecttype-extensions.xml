@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <custom-type type-id="TWILIO_OUT_OF_STOCK_SUBSCRIPTION">
+        <display-name xml:lang="x-default">Twilio out of stock subscription</display-name>
+        <description xml:lang="x-default">Set of phone numbers subscribed for productId</description>
+        <staging-mode>no-staging</staging-mode>
+        <storage-scope>site</storage-scope>
+        <key-definition attribute-id="productId">
+            <type>string</type>
+            <min-length>0</min-length>
+        </key-definition>
+        <attribute-definitions>
+            <attribute-definition attribute-id="phoneNumber">
+                <display-name xml:lang="x-default">Phone Number</display-name>
+                <type>set-of-string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="productName">
+                <display-name xml:lang="x-default">Product Name</display-name>
+                <type>string</type>
+                <localizable-flag>false</localizable-flag>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="twilio">
+                <display-name xml:lang="x-default">Twilio</display-name>
+                <attribute attribute-id="productId"/>
+                <attribute attribute-id="phoneNumber"/>
+                <attribute attribute-id="productName"/>
+            </attribute-group>
+        </group-definitions>
+    </custom-type>
+</metadata>

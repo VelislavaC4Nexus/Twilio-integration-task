@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="v_site_pref_twilio_phone">
+                <display-name xml:lang="x-default">Twilio Phone Number</display-name>
+                <description xml:lang="x-default">Twilio number for Twilio Service</description>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+                <default-value>+12485562487</default-value>
+            </attribute-definition>
+        </custom-attribute-definitions>
+    </type-extension>
+</metadata>
